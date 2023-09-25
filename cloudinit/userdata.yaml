@@ -5,34 +5,61 @@ packages:
   - docker.io
 runcmd:
     - mkdir -p /mnt/sharedfolder
+    - sudo rmmod floppy
+    - touch /home/local/test1.txt
+    - echo "blacklist floppy" | sudo tee /etc/modprobe.d/blacklist-floppy.conf
+    - touch /home/local/test2.txt 
     - sudo swapoff -a
-    - sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
-    - sudo tee /etc/modules-load.d/containerd.conf <<EOF
+    - touch /home/local/test3.txt
+    - sudo sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
+    - touch /home/local/test4.txt
+    - | 
+      sudo tee /etc/modules-load.d/containerd.conf <<EOF
       overlay
       br_netfilter
       EOF
+    - touch /home/local/test5.txt
     - sudo modprobe overlay
+    - touch /home/local/test6.txt
     - sudo modprobe br_netfilter
-    - sudo tee /etc/sysctl.d/kubernetes.conf <<EOF
+    - touch /home/local/test.txt
+    - |
+      sudo tee /etc/sysctl.d/kubernetes.conf <<EOF
       net.bridge.bridge-nf-call-ip6tables = 1
       net.bridge.bridge-nf-call-iptables = 1
       net.ipv4.ip_forward = 1
       EOF 
+    - touch /home/local/test7.txt
     - sudo sysctl --system
+    - touch /home/local/test8.txt
     - sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
+    - touch /home/local/test9.txt
     - sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
+    - touch /home/local/test10.txt
     - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    - touch /home/local/test11.txt
     - sudo apt update
+    - touch /home/local/test12.txt
     - sudo apt install -y containerd.io
+    - touch /home/local/test13.txt
     - containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
+    - touch /home/local/test14.txt
     - sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+    - touch /home/local/test15.txt
     - sudo systemctl restart containerd
+    - touch /home/local/test16.txt
     - sudo systemctl enable containerd
-    - curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/kubernetes-jammy.gpg
-    - sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-jammy main"
+    - touch /home/local/test17.txt
+    - curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/kubernetes-xenial.gpg
+    - touch /home/local/test18.txt
+    - sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+    - touch /home/local/test19.txt
     - sudo apt update
+    - touch /home/local/test20.txt
     - sudo apt install -y kubeadm kubelet kubectl
+    - touch /home/local/test21.txt
     - sudo apt-mark hold kubelet kubeadm kubectl
+    - touch /home/local/test22.txt
 
 
 

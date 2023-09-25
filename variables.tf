@@ -108,3 +108,4 @@ variable "esxi_host" {
     description = "The hostname of the ESXi host"
     type = string   
 }
+

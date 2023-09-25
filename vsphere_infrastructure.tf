@@ -31,8 +31,8 @@ data "vsphere_host" "host" {
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
-# data vsphere_content_library_item "content_library_item" {
-#   name              = "ubuntu-22.04-server-cloudimg-amd64.ova"
-#   type = "ovf"
-#   library_id = data.vsphere_content_library.content_library.id
-# }
+ data vsphere_content_library_item "content_library_item" {
+   name              = "ubuntu-22.04-server-cloudimg-amd64"
+   type = "ovf"
+   library_id = data.vsphere_content_library.content_library.id
+ }
